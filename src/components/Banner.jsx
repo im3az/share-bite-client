@@ -25,7 +25,7 @@ const Banner = () => {
           </div>
           <div className="flex items-center justify-center p-6 mt-8  lg:mt-0 h-72 md:h-96 lg:h-96 xl:h-112 2xl:h-128">
             <Lottie
-              className="h-min md:h-96 lg:h-min"
+              className="h-min md:h-96 lg:h-[580px]"
               animationData={bannerAnimation}
               loop={true}
             />
