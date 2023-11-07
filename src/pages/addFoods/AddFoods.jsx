@@ -1,8 +1,17 @@
+import { useState } from "react";
+
 const AddFoods = () => {
+  const [date, setDate] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(date);
+  };
+
   return (
     <div className=" min-h-screen p-20 text-center">
       <h2 className="text-4xl font-extrabold mb-10">Add a Food</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Food name , image, quantity*/}
         <div className="md:flex mb-8 gap-5">
           <div className="form-control md:w-1/3">
@@ -76,7 +85,8 @@ const AddFoods = () => {
             </label>
             <label className="input-group">
               <input
-                type="text"
+                onBlur={(e) => setDate(e.target.value)}
+                type="date"
                 name="expiryDate"
                 placeholder="Expired Date"
                 required
@@ -90,13 +100,15 @@ const AddFoods = () => {
               <span className="label-text">Food Status</span>
             </label>
             <label className="input-group">
-              <input
-                type="text"
-                name="status"
-                placeholder="Food Status "
-                required
+              <select
+                name="brand"
                 className="input input-bordered w-full"
-              />
+                required
+              >
+                <option value="">Select a status</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
             </label>
           </div>
         </div>
