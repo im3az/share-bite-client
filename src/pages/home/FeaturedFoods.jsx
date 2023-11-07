@@ -3,13 +3,9 @@ import AvailableFoodsCard from "../../components/AvailableFoodsCard";
 import axios from "axios";
 import Loading from "../../components/Loading";
 
-const AvailableFoods = () => {
+const FeaturedFoods = () => {
   const { isPending, data: donatedFoods } = useQuery({
     queryKey: ["availableFoods"],
-    // queryFn: async () => {
-    //   const res = await fetch("http://localhost:5000/availableFoods");
-    //   return res.json();
-    // },
     queryFn: async () => {
       const res = axios
         .get("http://localhost:5000/availableFoods?foodStatus=available")
@@ -24,15 +20,15 @@ const AvailableFoods = () => {
     return <Loading />;
   }
 
-  console.log(donatedFoods);
+  const first6DonatedFoods = donatedFoods.slice(0, 6);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 p-5 gap-y-10 my-5">
-      {donatedFoods.map((food) => (
+      {first6DonatedFoods.map((food) => (
         <AvailableFoodsCard key={food._id} food={food}></AvailableFoodsCard>
       ))}
     </div>
   );
 };
 
-export default AvailableFoods;
+export default FeaturedFoods;

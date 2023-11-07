@@ -32,6 +32,10 @@ const AddFoods = () => {
       .post("http://localhost:5000/availableFoods", availableFoodsData)
       .then((data) => {
         console.log(data.data);
+        alert("Food added");
+      })
+      .catch((error) => {
+        alert(error);
       });
   };
 
