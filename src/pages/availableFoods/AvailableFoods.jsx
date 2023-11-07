@@ -1,12 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import AvailableFoodsCard from "../../components/AvailableFoodsCard";
+import axios from "axios";
 
 const AvailableFoods = () => {
   const { isPending, data: donatedFoods } = useQuery({
     queryKey: ["availableFoods"],
+    // queryFn: async () => {
+    //   const res = await fetch("http://localhost:5000/availableFoods");
+    //   return res.json();
+    // },
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/availableFoods");
-      return res.json();
+      const res = axios
+        .get("http://localhost:5000/availableFoods")
+        .then((data) => {
+          return data.data;
+        });
+      return res;
     },
   });
 

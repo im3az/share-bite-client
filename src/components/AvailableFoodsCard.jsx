@@ -40,14 +40,14 @@ const AvailableFoodsCard = ({ food }) => {
           Food Quantity(Per server): {foodQuantity}
         </p>
         <div className="bg-slate-100 px-4 rounded-md">
-          <p className="font-semibold leading-relaxed text-gray-700">
-            Donator:
+          <p className="font-semibold leading-relaxed text-gray-700 pt-2">
+            Donated by:
           </p>
           <div className="relative flex w-full max-w-[26rem] flex-col  bg-transparent bg-clip-border text-gray-700 shadow-none">
             <div className="relative flex items-center gap-4 pt-0 pb-8 mx-0 mt-4 overflow-hidden text-gray-700 bg-transparent shadow-none bg-clip-border">
               <img
                 src={donatorImage}
-                alt="tania andrew"
+                alt="donor image"
                 className="relative inline-block h-[58px] w-[58px]  object-cover object-center"
               />
               <div className="flex w-full flex-col gap-0.5">
@@ -56,6 +56,9 @@ const AvailableFoodsCard = ({ food }) => {
                     {donatorName}
                   </h5>
                 </div>
+                <p className="block font-sans text-base antialiased font-light leading-relaxed text-blue-gray-900">
+                  {donatorEmail}
+                </p>
               </div>
             </div>
           </div>

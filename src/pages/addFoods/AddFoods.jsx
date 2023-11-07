@@ -1,11 +1,38 @@
+import axios from "axios";
 import { useState } from "react";
 
 const AddFoods = () => {
-  const [date, setDate] = useState("");
+  const [foodName, setFoodName] = useState("");
+  const [foodImage, setFoodImage] = useState("");
+  const [foodQuantity, setFoodQuantity] = useState("");
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [expiredDateTime, setExpiredDateTime] = useState("");
+  const [additionalNotes, setAdditionalNotes] = useState("");
+  const [donatorImage, setDonatorImage] = useState("");
+  const [donatorName, setDonatorName] = useState("");
+  const [donatorEmail, setDonatorEmail] = useState("");
+  const [foodStatus, setFoodStatus] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(date);
+    const availableFoodsData = {
+      foodName,
+      foodImage,
+      foodQuantity,
+      pickupLocation,
+      expiredDateTime,
+      additionalNotes,
+      donatorImage,
+      donatorName,
+      donatorEmail,
+      foodStatus,
+    };
+    // console.log(availableFoodsData);
+    axios
+      .post("http://localhost:5000/availableFoods", availableFoodsData)
+      .then((data) => {
+        console.log(data.data);
+      });
   };
 
   return (
@@ -23,6 +50,7 @@ const AddFoods = () => {
                 type="text"
                 name="name"
                 placeholder="Food Name"
+                onBlur={(e) => setFoodName(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -38,6 +66,7 @@ const AddFoods = () => {
                 type="text"
                 name="foodImage"
                 placeholder="Food image URL"
+                onBlur={(e) => setFoodImage(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -52,8 +81,8 @@ const AddFoods = () => {
               <input
                 type="number"
                 name="quantity"
-                placeholder=" Food Quantity (no. of person to be served.)
-                "
+                placeholder=" Food Quantity (no. of person to be served.)"
+                onBlur={(e) => setFoodQuantity(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -71,8 +100,8 @@ const AddFoods = () => {
               <input
                 type="text"
                 name="location"
-                placeholder="Pickup Location
-                "
+                placeholder="Pickup Location"
+                onBlur={(e) => setPickupLocation(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -81,14 +110,14 @@ const AddFoods = () => {
 
           <div className="form-control md:w-1/3">
             <label className="label">
-              <span className="label-text">Expired Date</span>
+              <span className="label-text">Expiry Date</span>
             </label>
             <label className="input-group">
               <input
-                onBlur={(e) => setDate(e.target.value)}
                 type="date"
                 name="expiryDate"
                 placeholder="Expired Date"
+                onBlur={(e) => setExpiredDateTime(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -104,6 +133,7 @@ const AddFoods = () => {
                 name="brand"
                 className="input input-bordered w-full"
                 required
+                onBlur={(e) => setFoodStatus(e.target.value)}
               >
                 <option value="">Select a status</option>
                 <option value="available">Available</option>
@@ -124,6 +154,7 @@ const AddFoods = () => {
                 type="text"
                 name="donatorImage"
                 placeholder="Donator Image URL"
+                onBlur={(e) => setDonatorImage(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -139,6 +170,7 @@ const AddFoods = () => {
                 type="text"
                 name="donatorName"
                 placeholder="Donator Name"
+                onBlur={(e) => setDonatorName(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -154,6 +186,7 @@ const AddFoods = () => {
                 type="email"
                 name="donatorEmail"
                 placeholder="Donator email"
+                onBlur={(e) => setDonatorEmail(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
@@ -172,6 +205,7 @@ const AddFoods = () => {
                 type="text"
                 name="notes"
                 placeholder=" Additional Notes"
+                onBlur={(e) => setAdditionalNotes(e.target.value)}
                 required
                 className="input input-bordered w-full"
               />
