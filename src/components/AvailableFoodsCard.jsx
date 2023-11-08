@@ -12,7 +12,7 @@ const AvailableFoodsCard = ({ food }) => {
     foodQuantity,
     foodStatus,
     pickupLocation,
-    id,
+    _id,
   } = food;
   return (
     <div className="relative flex w-full max-w-[48rem] flex-col md:flex-row  rounded-xl bg-white bg-clip-border text-gray-700 shadow-md mx-auto">
@@ -64,7 +64,7 @@ const AvailableFoodsCard = ({ food }) => {
           </div>
         </div>
 
-        <Link className="btn btn-secondary mt-3" href="#">
+        <Link className="btn btn-secondary mt-3" to={`/availableFoods/${_id}`}>
           Details
         </Link>
       </div>

@@ -8,6 +8,7 @@ import AvailableFoods from "../pages/availableFoods/AvailableFoods.jsx";
 import AddFoods from "../pages/addFoods/AddFoods.jsx";
 import UpdateFoods from "../pages/updateFoods/UpdateFoods.jsx";
 import PrivateRoute from "../providers/PrivateRoute.jsx";
+import SingleFoodDetails from "../pages/availableSingleFoodDetail/SingleFoodDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "availableFoods",
         element: <AvailableFoods />,
+      },
+      {
+        path: "/availableFoods/:id",
+        element: (
+          <PrivateRoute>
+            <SingleFoodDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "addFoods",
