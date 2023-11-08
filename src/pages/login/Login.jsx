@@ -5,10 +5,29 @@ import UseAuth from "../../hooks/UseAuth";
 import { useState } from "react";
 
 const Login = () => {
-  const { loading, loginUser, user } = UseAuth();
+  const { loading, login } = UseAuth();
+  const [loginError, setLoginError] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setLoginError("");
+
+    login(email, password)
+      .then((result) => {
+        console.log(result.user);
+
+        if (result.user) {
+          alert("logged in");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoginError(error.message);
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -19,11 +38,13 @@ const Login = () => {
 
         <div className="mx-auto  w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-50 text-gray-800">
           <h1 className="text-2xl font-bold text-center">Login</h1>
-          <form className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-1 text-sm">
               <label className="block text-gray-600">Email</label>
               <input
                 type="email"
+                required
+                onBlur={(e) => setEmail(e.target.value)}
                 name="email"
                 placeholder="Your email"
                 className="w-full input input-bordered px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 focus:border-sky-600"
@@ -33,15 +54,25 @@ const Login = () => {
               <label className="block text-gray-600">Password</label>
               <input
                 type="password"
+                required
+                onBlur={(e) => setPassword(e.target.value)}
                 name="password"
                 placeholder="Password"
                 className="w-full input input-bordered px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 focus:border-sky-600"
               />
             </div>
-            <button className="block w-full p-3 text-center rounded-md text-gray-50 bg-sky-600 btn ">
+            <button
+              type="submit"
+              className="block w-full p-3 text-center rounded-md text-gray-50 bg-sky-600 btn "
+            >
               Log in
             </button>
           </form>
+
+          <div className="text-center font-semibold text-red-800">
+            {loginError && <p>{loginError}</p>}
+          </div>
+
           <div className="flex items-center pt-4 space-x-1">
             <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
             <p className="px-3 text-sm text-gray-600">

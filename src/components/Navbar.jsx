@@ -1,25 +1,30 @@
 import { Link, NavLink } from "react-router-dom";
+import UseAuth from "../hooks/UseAuth";
 const Navbar = () => {
+  const { user, logOut, loading } = UseAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+      alert("Logged out");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const navLinks = (
     <>
       <li>
-        <NavLink  to="/">
-          Home
-        </NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink  to="availableFoods">
-          Available foods
-        </NavLink>
+        <NavLink to="availableFoods">Available foods</NavLink>
       </li>
       <li>
-        <NavLink to="/login">
-          Login
-        </NavLink>
+        <NavLink to="/login">Login</NavLink>
       </li>
     </>
   );
-
 
   return (
     <div className="bg-[#A6E2EC] ">
@@ -61,7 +66,43 @@ const Navbar = () => {
           <ul className="menu menu-lg menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">User</a>
+          <div className=" hidden md:block">
+            {user ? (
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="h-10 w-10">
+                  <img
+                    className="h-full w-full rounded-full object-cover object-center "
+                    src={user.photoURL}
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <div className="text-sm font-medium ">{user.displayName}</div>
+                  <div className="text-xs ">{user.email}</div>
+                </div>
+              </div>
+            ) : (
+              <div className="w-10 mr-2">
+                <img
+                  className="rounded-full"
+                  src="https://i.ibb.co/8b7zG7B/user.png"
+                  alt=""
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="mx-3">
+            {user ? (
+              <button onClick={handleSignOut} className="btn btn-primary">
+                Log out
+              </button>
+            ) : (
+              <Link to="/login">
+                <button className="btn btn-primary">Login</button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
