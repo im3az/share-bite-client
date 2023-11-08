@@ -4,9 +4,11 @@ import loginAnimation from "../../assets/Animation - 1699239622853.json";
 import UseAuth from "../../hooks/UseAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
 
 const Login = () => {
-  const { loading, login } = UseAuth();
+  const { login } = UseAuth();
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +24,7 @@ const Login = () => {
 
     login(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
 
         if (result.user) {
           toast.success("Logged in", { id: toastId });
@@ -30,9 +32,24 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         toast.error(error.message, { id: toastId });
         // setLoginError(error.message);
+      });
+  };
+
+  const googleLogin = new GoogleAuthProvider();
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, googleLogin)
+      .then((result) => {
+        if (result.user) {
+          toast.success("Logged in");
+          navigate(location?.state ? location.state : "/");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   };
 
@@ -87,7 +104,10 @@ const Login = () => {
             </p>
             <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
           </div>
-          <div className="flex justify-center space-x-4">
+          <div
+            onClick={handleGoogleLogin}
+            className="flex justify-center space-x-4"
+          >
             <button
               aria-label="Log in with Google"
               className="p-3 btn btn-ghost rounded-lg"

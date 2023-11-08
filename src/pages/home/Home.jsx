@@ -1,7 +1,15 @@
+import { useContext } from "react";
 import Banner from "../../components/Banner";
 import FeaturedFoods from "./FeaturedFoods";
+import { AuthContext } from "../../providers/AuthProvider";
+import Loading from "../../components/Loading";
 
 const Home = () => {
+  const { loading, user } = useContext(AuthContext);
+  console.log(user);
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <Banner />

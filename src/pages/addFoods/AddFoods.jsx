@@ -1,25 +1,32 @@
 import axios from "axios";
-import { useState } from "react";
-import UseAuth from "../../hooks/UseAuth";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../providers/AuthProvider";
+import Loading from "../../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const AddFoods = () => {
-  const { user } = UseAuth();
-
-
-  console.log(user?.displayName);
-  console.log(user?.email);
-  console.log(user?.photoURL);
-
   const [foodName, setFoodName] = useState("");
   const [foodImage, setFoodImage] = useState("");
   const [foodQuantity, setFoodQuantity] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
   const [expiredDateTime, setExpiredDateTime] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
-  const [donatorImage, setDonatorImage] = useState("");
-  const [donatorName, setDonatorName] = useState("");
-  const [donatorEmail, setDonatorEmail] = useState("");
-  const [foodStatus, setFoodStatus] = useState("");
+  // const [donatorImage, setDonatorImage] = useState("");
+  // const [donatorName, setDonatorName] = useState("");
+  // const [donatorEmail, setDonatorEmail] = useState("");
+  const [foodStatus, setFoodStatus] = useState("available");
+  const navigate = useNavigate();
+
+  const { user, loading } = useContext(AuthContext);
+
+  const donatorImage = user.photoURL;
+  const donatorName = user.displayName;
+  const donatorEmail = user.email;
+
+  // console.log(user?.displayName);
+  // console.log(user?.email);
+  // console.log(user?.photoURL);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,16 +47,19 @@ const AddFoods = () => {
       .post("http://localhost:5000/availableFoods", availableFoodsData)
       .then((data) => {
         console.log(data.data);
-        alert("Food added");
+        toast.success("Food added successfully");
+        navigate("/availableFoods");
       })
       .catch((error) => {
-        alert(error);
+        toast.error(error);
       });
   };
 
   return (
     <div className=" min-h-screen p-20 text-center">
-      <h2 className="text-4xl font-extrabold mb-10">Add a Food</h2>
+      <h2 className="text-center font-bold text-4xl lg:text-5xl text-[#F017B8] mb-10">
+        Add<span className="text-[#4BACBF]"> foods </span>
+      </h2>
       <form onSubmit={handleSubmit}>
         {/* Food name , image, quantity*/}
         <div className="md:flex mb-8 gap-5">
@@ -148,7 +158,6 @@ const AddFoods = () => {
                 onBlur={(e) => setFoodStatus(e.target.value)}
                 defaultValue="available"
               >
-                <option value="">Select a status</option>
                 <option value="available">Available</option>
                 <option value="unavailable">Unavailable</option>
               </select>
@@ -167,10 +176,10 @@ const AddFoods = () => {
                 type="text"
                 name="donatorImage"
                 placeholder="Donator Image URL"
-                onBlur={(e) => setDonatorImage(e.target.value)}
+                // onBlur={(e) => setDonatorImage(e.target.value)}
                 required
-                defaultValue={user?.photoURL}
                 readOnly
+                defaultValue={user.photoURL}
                 className="input input-bordered w-full"
               />
             </label>
@@ -185,10 +194,10 @@ const AddFoods = () => {
                 type="text"
                 name="donatorName"
                 placeholder="Donator Name"
-                onBlur={(e) => setDonatorName(e.target.value)}
-                required
-                defaultValue={user?.displayName}
+                // onBlur={(e) => setDonatorName(e.target.value)}
                 readOnly
+                required
+                defaultValue={user.displayName}
                 className="input input-bordered w-full"
               />
             </label>
@@ -203,10 +212,10 @@ const AddFoods = () => {
                 type="email"
                 name="donatorEmail"
                 placeholder="Donator email"
-                onBlur={(e) => setDonatorEmail(e.target.value)}
-                required
-                defaultValue={user?.email}
+                // onBlur={(e) => setDonatorEmail(e.target.value)}
                 readOnly
+                required
+                defaultValue={user.email}
                 className="input input-bordered w-full"
               />
             </label>

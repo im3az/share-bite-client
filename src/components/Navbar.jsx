@@ -1,11 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import UseAuth from "../hooks/UseAuth";
 import toast from "react-hot-toast";
+import Loading from "./Loading";
 const Navbar = () => {
   const { user, logOut, loading } = UseAuth();
 
-  const handleSignOut = async () => {
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
+  const handleSignOut = async () => {
     const toastId = toast.loading("Logging out...");
 
     try {
@@ -73,14 +77,19 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link to="/">
-            <img
-              className="h-16 btn btn-ghost"
-              src="https://i.ibb.co/Ttrsqh8/cutlery-3170733-1.png"
-              alt=""
-            />
-          </Link>
-          <h2 className="text-3xl font-bold">Share<span className="text-[#F017B8]">Bite</span></h2>
+          <div className="flex items-center gap-3">
+            <Link className="hidden md:block" to="/">
+              <img
+                className="h-14 "
+                src="https://i.ibb.co/Ttrsqh8/cutlery-3170733-1.png"
+                alt=""
+              />
+            </Link>
+            <h2 className="text-3xl font-semibold">
+              <span className="text-[#337d8b]">Share</span>
+              <span className="text-[#F017B8]">Bite</span>
+            </h2>
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-lg menu-horizontal px-1">{navLinks}</ul>
@@ -97,13 +106,27 @@ const Navbar = () => {
                         src={user.photoURL}
                         alt=""
                       />
-                      
                     </div>
-                    <button type="button" title="Toggle dropdown" className="p-3">
-		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
-			<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-		</svg>
-	</button>
+                    <button
+                      type="button"
+                      title="Toggle dropdown"
+                      className="p-3"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </button>
                   </div>
                 </label>
                 <ul
