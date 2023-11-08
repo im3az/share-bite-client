@@ -20,6 +20,10 @@ const AddFoods = () => {
 
   const { user, loading } = useContext(AuthContext);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   const donatorImage = user.photoURL;
   const donatorName = user.displayName;
   const donatorEmail = user.email;
