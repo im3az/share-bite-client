@@ -7,6 +7,7 @@ import Registration from "../pages/registration/Registration.jsx";
 import AvailableFoods from "../pages/availableFoods/AvailableFoods.jsx";
 import AddFoods from "../pages/addFoods/AddFoods.jsx";
 import UpdateFoods from "../pages/updateFoods/UpdateFoods.jsx";
+import PrivateRoute from "../providers/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,11 +25,19 @@ const router = createBrowserRouter([
       },
       {
         path: "addFoods",
-        element: <AddFoods />,
+        element: (
+          <PrivateRoute>
+            <AddFoods />
+          </PrivateRoute>
+        ),
       },
       {
         path: "updateFoods",
-        element: <UpdateFoods />,
+        element: (
+          <PrivateRoute>
+            <UpdateFoods />
+          </PrivateRoute>
+        ),
       },
     ],
   },

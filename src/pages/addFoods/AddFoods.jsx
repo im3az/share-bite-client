@@ -1,7 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
+import UseAuth from "../../hooks/UseAuth";
 
 const AddFoods = () => {
+  const { user } = UseAuth();
+
+
+  console.log(user?.displayName);
+  console.log(user?.email);
+  console.log(user?.photoURL);
+
   const [foodName, setFoodName] = useState("");
   const [foodImage, setFoodImage] = useState("");
   const [foodQuantity, setFoodQuantity] = useState("");
@@ -138,6 +146,7 @@ const AddFoods = () => {
                 className="input input-bordered w-full"
                 required
                 onBlur={(e) => setFoodStatus(e.target.value)}
+                defaultValue="available"
               >
                 <option value="">Select a status</option>
                 <option value="available">Available</option>
@@ -160,6 +169,8 @@ const AddFoods = () => {
                 placeholder="Donator Image URL"
                 onBlur={(e) => setDonatorImage(e.target.value)}
                 required
+                defaultValue={user?.photoURL}
+                readOnly
                 className="input input-bordered w-full"
               />
             </label>
@@ -176,6 +187,8 @@ const AddFoods = () => {
                 placeholder="Donator Name"
                 onBlur={(e) => setDonatorName(e.target.value)}
                 required
+                defaultValue={user?.displayName}
+                readOnly
                 className="input input-bordered w-full"
               />
             </label>
@@ -192,6 +205,8 @@ const AddFoods = () => {
                 placeholder="Donator email"
                 onBlur={(e) => setDonatorEmail(e.target.value)}
                 required
+                defaultValue={user?.email}
+                readOnly
                 className="input input-bordered w-full"
               />
             </label>

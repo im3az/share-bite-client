@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import loginAnimation from "../../assets/Animation - 1699239622853.json";
 import UseAuth from "../../hooks/UseAuth";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { loading, login } = UseAuth();
   const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,17 +18,21 @@ const Login = () => {
     e.preventDefault();
     setLoginError("");
 
+    const toastId = toast.loading("Logging in...");
+
     login(email, password)
       .then((result) => {
         console.log(result.user);
 
         if (result.user) {
-          alert("logged in");
+          toast.success("Logged in", { id: toastId });
+          navigate(location?.state ? location.state : "/");
         }
       })
       .catch((error) => {
         console.log(error);
-        setLoginError(error.message);
+        toast.error(error.message, { id: toastId });
+        // setLoginError(error.message);
       });
   };
 

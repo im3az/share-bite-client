@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import signUpAnimation from "../../assets/register.json";
 import { useState } from "react";
 import UseAuth from "../../hooks/UseAuth";
 import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const Registration = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const Registration = () => {
 
   const { createUser } = UseAuth();
   const [registerError, setRegisterError] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -30,6 +32,8 @@ const Registration = () => {
       return;
     }
 
+    const toastId = toast.loading("Registering...");
+
     createUser(email, password)
       .then((result) => {
         const user = result.user;
@@ -38,12 +42,14 @@ const Registration = () => {
         console.log(user);
 
         if (user) {
-          alert("Registered")
+          toast.success("Registered", { id: toastId });
+          navigate("/");
         }
       })
       .catch((error) => {
         console.log(error);
-        setRegisterError(error.message);
+        toast.error(error.message, { id: toastId });
+        // setRegisterError(error.message);
       });
   };
 
