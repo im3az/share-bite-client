@@ -1,13 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const SingleFoodDetails = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { isPending, data: SingleFoodDetails } = useQuery({
     queryKey: ["availableSingleFood"],
@@ -28,8 +31,6 @@ const SingleFoodDetails = () => {
     return <Loading />;
   }
 
-  //   console.log(SingleFoodDetails);
-
   const {
     foodName,
     foodImage,
@@ -41,10 +42,61 @@ const SingleFoodDetails = () => {
     donatorName,
     donatorEmail,
     foodStatus,
-    _id,
+    _id: foodId,
   } = SingleFoodDetails;
 
-  console.log(_id);
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = (today.getMonth() + 1).toString().padStart(2, "0");
+    let day = today.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // const [newAdditionalNotes, setNewAdditionalNotes] = useState(additionalNotes);
+  // const [donationAmount, setDonationAmount] = useState(0);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const requesterName = user?.displayName;
+    const requesterImage = user?.photoURL;
+    const requesterEmail = user?.email;
+    const requestedDate = form.requestedDate.value;
+    const donationAmount = form.donationAmount.value;
+    const newAdditionalNotes = form.notes.value;
+
+    const requestedFoodData = {
+      requesterName,
+      requesterImage,
+      requesterEmail,
+      requestedDate,
+      foodName,
+      foodImage,
+      foodId,
+      donatorName,
+      donatorEmail,
+      pickupLocation,
+      expiredDateTime,
+      newAdditionalNotes,
+      donationAmount,
+    };
+
+    // console.log(requestedFoodData);
+
+    axios
+      .post("http://localhost:5000/requestedFoods", requestedFoodData)
+      .then((data) => {
+        console.log(data.data);
+        toast.success("Food successfully requested");
+        navigate("/availableFoods");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
 
   return (
     <div>
@@ -105,16 +157,13 @@ const SingleFoodDetails = () => {
               </div>
             </div>
           </div>
-          {/* <button className="btn ">
-            Request
-          </button> */}
 
           {/* Open the modal using document.getElementById('ID').showModal() method */}
           <button
             className="btn btn-secondary w-1/2 mx-auto my-6"
             onClick={() => document.getElementById("my_modal_5").showModal()}
           >
-            open modal
+            Make request
           </button>
 
           <dialog
@@ -122,7 +171,7 @@ const SingleFoodDetails = () => {
             className="modal modal-bottom sm:modal-middle"
           >
             <div className="modal-box">
-              <form>
+              <form onSubmit={handleSubmit}>
                 {/* Food name , image, quantity*/}
                 <div className="md:flex mb-8 gap-5">
                   <div className="form-control md:w-1/3">
@@ -168,7 +217,7 @@ const SingleFoodDetails = () => {
                         type="text"
                         name="quantity"
                         placeholder="Food Id"
-                        defaultValue={_id}
+                        defaultValue={foodId}
                         readOnly
                         required
                         className="input input-bordered w-full"
@@ -177,7 +226,7 @@ const SingleFoodDetails = () => {
                   </div>
                 </div>
 
-                {/* location, expiry date, food status*/}
+                {/* location, expiry date, requested date*/}
                 <div className="md:flex mb-8 gap-5">
                   <div className="form-control md:w-1/3">
                     <label className="label">
@@ -198,7 +247,7 @@ const SingleFoodDetails = () => {
 
                   <div className="form-control md:w-1/3">
                     <label className="label">
-                      <span className="label-text">Expired Date</span>
+                      <span className="label-text">Expire Date</span>
                     </label>
                     <label className="input-group">
                       <input
@@ -220,9 +269,11 @@ const SingleFoodDetails = () => {
                     <label className="input-group">
                       <input
                         type="date"
-                        name="status"
+                        name="requestedDate"
                         placeholder="Food Status "
                         required
+                        value={getCurrentDate()}
+                        readOnly
                         className="input input-bordered w-full"
                       />
                     </label>
@@ -238,9 +289,10 @@ const SingleFoodDetails = () => {
                     <label className="input-group">
                       <input
                         type="number"
-                        name="donatorImage"
+                        name="donationAmount"
                         placeholder="Donate"
                         required
+                        defaultValue={0}
                         className="input input-bordered w-full"
                       />
                     </label>
@@ -305,7 +357,7 @@ const SingleFoodDetails = () => {
                     <label className="input-group">
                       <input
                         type="text"
-                        name="notes"
+                        name="requesterEmail"
                         placeholder=" Additional Notes"
                         required
                         defaultValue={user?.email}

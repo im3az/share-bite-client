@@ -6,7 +6,7 @@ import Loading from "../../components/Loading";
 
 const Home = () => {
   const { loading, user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   if (loading) {
     return <Loading />;
   }
