@@ -20,7 +20,7 @@ const AvailableFoods = () => {
     return <Loading />;
   }
 
-  // console.log(donatedFoods);
+  console.log(donatedFoods);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 p-5 gap-y-10 my-5">

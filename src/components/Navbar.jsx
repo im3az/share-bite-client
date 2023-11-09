@@ -29,7 +29,7 @@ const Navbar = () => {
         <NavLink to="availableFoods">Available foods</NavLink>
       </li>
       <li>
-        <NavLink to="/aboutUs">About us</NavLink>
+        <NavLink to="aboutUs">About us</NavLink>
       </li>
     </>
   );
@@ -63,15 +63,15 @@ const Navbar = () => {
               {user && (
                 <>
                   <li>
-                    <NavLink to="/addFoods">Add food</NavLink>
+                    <NavLink to="addFoods">Add food</NavLink>
                   </li>
 
                   <li>
-                    <NavLink to="/manageMyFoods">Manage My Foods</NavLink>
+                    <NavLink to="manageMyFoods">Manage My Foods</NavLink>
                   </li>
 
                   <li>
-                    <NavLink to="/myFoodRequest">My Food Request</NavLink>
+                    <NavLink to="myFoodRequest">My Food Request</NavLink>
                   </li>
                 </>
               )}
@@ -134,15 +134,15 @@ const Navbar = () => {
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li>
-                    <NavLink to="/addFoods">Add food</NavLink>
+                    <NavLink to="addFoods">Add food</NavLink>
                   </li>
 
                   <li>
-                    <NavLink to="/manageMyFoods">Manage My Foods</NavLink>
+                    <NavLink to="manageMyFoods">Manage My Foods</NavLink>
                   </li>
 
                   <li>
-                    <NavLink to="/myFoodRequest">My Food Request</NavLink>
+                    <NavLink to="myFoodRequest">My Food Request</NavLink>
                   </li>
                 </ul>
               </div>

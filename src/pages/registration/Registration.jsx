@@ -7,12 +7,12 @@ import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 
 const Registration = () => {
+  const { createUser } = UseAuth();
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { createUser } = UseAuth();
   const [registerError, setRegisterError] = useState("");
   const navigate = useNavigate();
 

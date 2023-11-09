@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
 
 const AddFoods = () => {
+  const { user, loading } = useContext(AuthContext);
   const [foodName, setFoodName] = useState("");
   const [foodImage, setFoodImage] = useState("");
   const [foodQuantity, setFoodQuantity] = useState("");
@@ -17,8 +18,6 @@ const AddFoods = () => {
   // const [donatorEmail, setDonatorEmail] = useState("");
   const [foodStatus, setFoodStatus] = useState("available");
   const navigate = useNavigate();
-
-  const { user, loading } = useContext(AuthContext);
 
   if (loading) {
     return <Loading />;
