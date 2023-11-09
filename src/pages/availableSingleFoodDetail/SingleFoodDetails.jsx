@@ -82,6 +82,7 @@ const SingleFoodDetails = () => {
       expiredDateTime,
       newAdditionalNotes,
       donationAmount,
+      foodStatus,
     };
 
     // console.log(requestedFoodData);

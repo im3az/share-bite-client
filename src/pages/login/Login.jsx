@@ -6,6 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { login } = UseAuth();
@@ -55,6 +56,9 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
+      <Helmet>
+        <title>ShareBite | Login</title>
+      </Helmet>
       <div className="hero-content flex-col lg:flex-row">
         <div className=" w-1/3">
           <Lottie animationData={loginAnimation} loop={true} />

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const ManageSingleFood = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ const ManageSingleFood = () => {
       .then((response) => {
         console.log(response);
         toast.success("Food Updated successfully");
+        navigate("/availableFoods");
       })
       .catch((error) => {
         toast.error(error);
@@ -58,6 +60,9 @@ const ManageSingleFood = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ShareBite | Manage single food</title>
+      </Helmet>
       {requestedFoodData ? (
         <div className="card sm:w-2/3 md:w-1/2 lg:w-2/3 xl:w-1/4 bg-base-100 shadow-xl mx-auto p-10 my-7">
           <figure>

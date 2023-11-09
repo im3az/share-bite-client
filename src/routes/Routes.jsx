@@ -11,6 +11,7 @@ import PrivateRoute from "../providers/PrivateRoute.jsx";
 import SingleFoodDetails from "../pages/availableSingleFoodDetail/SingleFoodDetails.jsx";
 import ManageMyFoods from "../pages/manageMyAddedFoods.jsx/ManageMyFoods.jsx";
 import ManageSingleFood from "../pages/manageMyAddedFoods.jsx/ManageSingleFood.jsx";
+import MyFoodRequest from "../pages/myFoodRequest/MyFoodRequest.jsx";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,14 @@ const router = createBrowserRouter([
           <PrivateRoute>
             {" "}
             <ManageSingleFood />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myFoodRequest",
+        element: (
+          <PrivateRoute>
+            <MyFoodRequest />
           </PrivateRoute>
         ),
       },

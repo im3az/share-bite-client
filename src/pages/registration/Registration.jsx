@@ -5,6 +5,7 @@ import { useState } from "react";
 import UseAuth from "../../hooks/UseAuth";
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const Registration = () => {
   const { createUser } = UseAuth();
@@ -55,6 +56,9 @@ const Registration = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
+      <Helmet>
+        <title>ShareBite | Registration</title>
+      </Helmet>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className=" w-1/3">
           <Lottie animationData={signUpAnimation} loop={true} />

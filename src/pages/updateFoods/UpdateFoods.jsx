@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const UpdateFoods = () => {
   const { id } = useParams();
@@ -79,6 +80,9 @@ const UpdateFoods = () => {
 
   return (
     <div className=" min-h-screen p-20 text-center">
+      <Helmet>
+        <title>ShareBite | Update food</title>
+      </Helmet>
       <h2 className="text-center font-bold text-4xl lg:text-5xl text-[#F017B8] mb-10">
         Update<span className="text-[#4BACBF]"> foods </span>
       </h2>

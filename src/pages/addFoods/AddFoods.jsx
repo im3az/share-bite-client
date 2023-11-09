@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../providers/AuthProvider";
 import Loading from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AddFoods = () => {
   const { user, loading } = useContext(AuthContext);
@@ -60,6 +61,9 @@ const AddFoods = () => {
 
   return (
     <div className=" min-h-screen p-20 text-center">
+      <Helmet>
+        <title>ShareBite | Add Foods</title>
+      </Helmet>
       <h2 className="text-center font-bold text-4xl lg:text-5xl text-[#F017B8] mb-10">
         Add<span className="text-[#4BACBF]"> foods </span>
       </h2>
