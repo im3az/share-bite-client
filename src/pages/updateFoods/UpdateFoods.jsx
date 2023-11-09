@@ -1,8 +1,88 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
+import toast from "react-hot-toast";
+
 const UpdateFoods = () => {
+  const { id } = useParams();
+
+  const { isPending, data: oldData } = useQuery({
+    queryKey: ["availableSingleFood"],
+    queryFn: async () => {
+      const res = axios
+        .get(`http://localhost:5000/availableFoods/${id}`)
+        .then((data) => {
+          return data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      return res;
+    },
+  });
+
+  const navigate = useNavigate();
+
+  if (isPending) {
+    return <Loading />;
+  }
+
+  const {
+    foodName,
+    foodImage,
+    foodQuantity,
+    pickupLocation,
+    expiredDateTime,
+    additionalNotes,
+    donatorImage,
+    donatorName,
+    donatorEmail,
+    foodStatus,
+    _id,
+  } = oldData;
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const foodName = form.foodName.value;
+    const foodImage = form.foodImage.value;
+    const foodQuantity = form.foodQuantity.value;
+    const pickupLocation = form.pickupLocation.value;
+    const expiredDateTime = form.expiredDateTime.value;
+    const additionalNotes = form.additionalNotes.value;
+    const foodStatus = form.foodName.value;
+
+    // console.log(updateData);
+
+    axios
+      .put(`http://localhost:5000/updateFoods/${_id}`, {
+        foodName,
+        foodImage,
+        foodQuantity,
+        pickupLocation,
+        expiredDateTime,
+        additionalNotes,
+        foodStatus,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+    toast.success("Food Updated successfully");
+    navigate("/availableFoods");
+  };
+
   return (
     <div className=" min-h-screen p-20 text-center">
-      <h2 className="text-4xl font-extrabold mb-10">Update a Food</h2>
-      <form>
+      <h2 className="text-center font-bold text-4xl lg:text-5xl text-[#F017B8] mb-10">
+        Update<span className="text-[#4BACBF]"> foods </span>
+      </h2>
+      <form onSubmit={handleUpdate}>
         {/* Food name , image, quantity*/}
         <div className="md:flex mb-8 gap-5">
           <div className="form-control md:w-1/3">
@@ -12,8 +92,9 @@ const UpdateFoods = () => {
             <label className="input-group">
               <input
                 type="text"
-                name="name"
+                name="foodName"
                 placeholder="Food Name"
+                defaultValue={foodName}
                 required
                 className="input input-bordered w-full"
               />
@@ -29,6 +110,7 @@ const UpdateFoods = () => {
                 type="text"
                 name="foodImage"
                 placeholder="Food image URL"
+                defaultValue={foodImage}
                 required
                 className="input input-bordered w-full"
               />
@@ -42,9 +124,10 @@ const UpdateFoods = () => {
             <label className="input-group">
               <input
                 type="number"
-                name="quantity"
+                name="foodQuantity"
                 placeholder=" Food Quantity (no. of person to be served.)
                 "
+                defaultValue={foodQuantity}
                 required
                 className="input input-bordered w-full"
               />
@@ -61,9 +144,10 @@ const UpdateFoods = () => {
             <label className="input-group">
               <input
                 type="text"
-                name="location"
+                name="pickupLocation"
                 placeholder="Pickup Location
                 "
+                defaultValue={pickupLocation}
                 required
                 className="input input-bordered w-full"
               />
@@ -76,9 +160,10 @@ const UpdateFoods = () => {
             </label>
             <label className="input-group">
               <input
-                type="text"
-                name="expiryDate"
+                type="date"
+                name="expiredDateTime"
                 placeholder="Expired Date"
+                defaultValue={expiredDateTime}
                 required
                 className="input input-bordered w-full"
               />
@@ -90,13 +175,15 @@ const UpdateFoods = () => {
               <span className="label-text">Food Status</span>
             </label>
             <label className="input-group">
-              <input
-                type="text"
-                name="status"
-                placeholder="Food Status "
-                required
+              <select
+                name="foodStatus"
                 className="input input-bordered w-full"
-              />
+                required
+                defaultValue={foodStatus}
+              >
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
             </label>
           </div>
         </div>
@@ -112,6 +199,8 @@ const UpdateFoods = () => {
                 type="text"
                 name="donatorImage"
                 placeholder="Donator Image URL"
+                defaultValue={donatorImage}
+                readOnly
                 required
                 className="input input-bordered w-full"
               />
@@ -127,6 +216,8 @@ const UpdateFoods = () => {
                 type="text"
                 name="donatorName"
                 placeholder="Donator Name"
+                defaultValue={donatorName}
+                readOnly
                 required
                 className="input input-bordered w-full"
               />
@@ -142,6 +233,8 @@ const UpdateFoods = () => {
                 type="email"
                 name="donatorEmail"
                 placeholder="Donator email"
+                defaultValue={donatorEmail}
+                readOnly
                 required
                 className="input input-bordered w-full"
               />
@@ -158,8 +251,9 @@ const UpdateFoods = () => {
             <label className="input-group">
               <input
                 type="text"
-                name="notes"
+                name="additionalNotes"
                 placeholder=" Additional Notes"
+                defaultValue={additionalNotes}
                 required
                 className="input input-bordered w-full"
               />
@@ -167,11 +261,7 @@ const UpdateFoods = () => {
           </div>
         </div>
 
-        <input
-          type="submit"
-          value="Update"
-          className="btn btn-primary w-1/2"
-        />
+        <input type="submit" value="Update" className="btn btn-primary w-1/2" />
       </form>
     </div>
   );

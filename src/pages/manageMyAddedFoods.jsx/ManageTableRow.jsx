@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ManageTableRow = ({ foods }) => {
   const {
@@ -31,10 +32,12 @@ const ManageTableRow = ({ foods }) => {
       </td>
       <td>{additionalNotes}</td>
       <td>{pickupLocation}</td>
-      <th className="">
-        <button className="btn btn-primary btn-xs mx-2">Update</button>
-        <button className="btn btn-secondary btn-xs mx-2">Manage</button>
-        <button className="btn btn-error btn-xs mx-2">Delete</button>
+      <th>
+        <Link to={`/updateFoods/${_id}`} className="btn btn-accent btn-xs mx-2">
+          Update
+        </Link>
+        <Link className="btn btn-secondary btn-xs mx-2">Manage</Link>
+        <Link className="btn btn-error btn-xs mx-2">Delete</Link>
       </th>
     </tr>
   );
