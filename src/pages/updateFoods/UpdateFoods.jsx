@@ -74,7 +74,7 @@ const UpdateFoods = () => {
         toast.error(error);
       });
     toast.success("Food Updated successfully");
-    navigate("/availableFoods");
+    navigate("/manageMyFoods");
   };
 
   return (

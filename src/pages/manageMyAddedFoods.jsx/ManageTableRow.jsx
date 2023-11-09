@@ -1,4 +1,6 @@
-import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const ManageTableRow = ({ foods }) => {
@@ -16,6 +18,27 @@ const ManageTableRow = ({ foods }) => {
     foodStatus,
   } = foods;
   //   console.log(_id);
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationKey: ["deleteFood"],
+    mutationFn: (id) => {
+      return axios
+        .delete(`http://localhost:5000/deleteFood/${id}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    onSuccess: () => {
+      toast.success("Food deleted");
+      queryClient.invalidateQueries(["manageMyFoods"]);
+    },
+  });
+
   return (
     <tr>
       <td>
@@ -37,7 +60,9 @@ const ManageTableRow = ({ foods }) => {
           Update
         </Link>
         <Link className="btn btn-secondary btn-xs mx-2">Manage</Link>
-        <Link className="btn btn-error btn-xs mx-2">Delete</Link>
+        <Link onClick={() => mutate(_id)} className="btn btn-error btn-xs mx-2">
+          Delete
+        </Link>
       </th>
     </tr>
   );
