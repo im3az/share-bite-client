@@ -10,6 +10,7 @@ import UpdateFoods from "../pages/updateFoods/UpdateFoods.jsx";
 import PrivateRoute from "../providers/PrivateRoute.jsx";
 import SingleFoodDetails from "../pages/availableSingleFoodDetail/SingleFoodDetails.jsx";
 import ManageMyFoods from "../pages/manageMyAddedFoods.jsx/ManageMyFoods.jsx";
+import ManageSingleFood from "../pages/manageMyAddedFoods.jsx/ManageSingleFood.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,13 +44,26 @@ const router = createBrowserRouter([
       },
       {
         path: "manageMyFoods",
-        element: <ManageMyFoods />,
+        element: (
+          <PrivateRoute>
+            <ManageMyFoods />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/updateFoods/:id",
         element: (
           <PrivateRoute>
             <UpdateFoods />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manageSingleFood/:id",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <ManageSingleFood />
           </PrivateRoute>
         ),
       },

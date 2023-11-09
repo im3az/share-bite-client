@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ManageTableRow = ({ foods }) => {
   const {
@@ -17,6 +18,7 @@ const ManageTableRow = ({ foods }) => {
     donatorEmail,
     foodStatus,
   } = foods;
+
   //   console.log(_id);
 
   const queryClient = useQueryClient();
@@ -24,18 +26,45 @@ const ManageTableRow = ({ foods }) => {
   const { mutate } = useMutation({
     mutationKey: ["deleteFood"],
     mutationFn: (id) => {
-      return axios
-        .delete(`http://localhost:5000/deleteFood/${id}`)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return axios
+            .delete(`http://localhost:5000/deleteFood/${id}`)
+            .then((res) => {
+              console.log(res);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              queryClient.invalidateQueries(["manageMyFoods"]);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      });
+
+      // return axios
+      //   .delete(`http://localhost:5000/deleteFood/${id}`)
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
     onSuccess: () => {
-      toast.success("Food deleted");
-      queryClient.invalidateQueries(["manageMyFoods"]);
+      // toast.success("Food deleted");
+      // queryClient.invalidateQueries(["manageMyFoods"]);
     },
   });
 
@@ -59,7 +88,12 @@ const ManageTableRow = ({ foods }) => {
         <Link to={`/updateFoods/${_id}`} className="btn btn-accent btn-xs mx-2">
           Update
         </Link>
-        <Link className="btn btn-secondary btn-xs mx-2">Manage</Link>
+        <Link
+          to={`/manageSingleFood/${_id}`}
+          className="btn btn-secondary btn-xs mx-2"
+        >
+          Manage
+        </Link>
         <Link onClick={() => mutate(_id)} className="btn btn-error btn-xs mx-2">
           Delete
         </Link>

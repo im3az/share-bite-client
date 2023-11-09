@@ -31,7 +31,7 @@ const ManageMyFoods = () => {
   }
 
   return (
-    <div className="overflow-x-auto p-10">
+    <div className="overflow-x-auto p-10 min-h-screen">
       <table className="table">
         {/* head */}
         <thead>

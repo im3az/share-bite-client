@@ -53,7 +53,7 @@ const UpdateFoods = () => {
     const pickupLocation = form.pickupLocation.value;
     const expiredDateTime = form.expiredDateTime.value;
     const additionalNotes = form.additionalNotes.value;
-    const foodStatus = form.foodName.value;
+    const foodStatus = form.foodStatus.value;
 
     // console.log(updateData);
 
@@ -74,7 +74,7 @@ const UpdateFoods = () => {
         toast.error(error);
       });
     toast.success("Food Updated successfully");
-    navigate("/manageMyFoods");
+    navigate("/availableFoods");
   };
 
   return (
