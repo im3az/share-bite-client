@@ -18,7 +18,7 @@ const ManageMyFoods = () => {
     queryKey: ["manageMyFoods"],
     queryFn: async () => {
       const res = await axios
-        .get(`http://localhost:5000/manageMyFoods?donatorEmail=${email}`)
+        .get(`https://share-bite-server-dpt0g090w-im3az.vercel.app/manageMyFoods?donatorEmail=${email}`)
         .then((data) => {
           return data.data;
         });

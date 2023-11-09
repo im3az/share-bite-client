@@ -2,7 +2,7 @@ import React from "react";
 
 const News = () => {
   return (
-    <section className="p-4 lg:p-8 bg-gray-100 text-gray-800">
+    <section className="p-8 lg:p-8 bg-gray-100 text-gray-800">
       <h2 className="text-center font-bold text-4xl lg:text-5xl text-[#F017B8] my-20">
         Get<span className="text-[#4BACBF]"> Involved </span>
       </h2>
@@ -19,8 +19,8 @@ const News = () => {
             </span>
             <h3 className="text-3xl font-bold">Sign up as a community group</h3>
             <p className="my-6 text-gray-600">
-              FoodCloud works with a network of more than 600 Irish Community
-              Organisations. Join us.
+              ShareBIte works with a network of more than 600 Irish Community
+              Organizations. Join us.
             </p>
             <button className="self-start btn btn-secondary">Join</button>
           </div>
@@ -35,7 +35,7 @@ const News = () => {
             <span className="text-xs uppercase text-gray-600">
               Join, it's free
             </span>
-            <h3 className="text-3xl font-bold">Use FoodCloud Technology</h3>
+            <h3 className="text-3xl font-bold">Use ShareBIte Technology</h3>
             <p className="my-6 text-gray-600">
               We share our technology and expertise with other food banks.
             </p>
@@ -52,7 +52,7 @@ const News = () => {
             <span className="text-xs uppercase text-gray-600">
               Join, it's free
             </span>
-            <h3 className="text-3xl font-bold">Volunteer with FoodCloud</h3>
+            <h3 className="text-3xl font-bold">Volunteer with ShareBIte</h3>
             <p className="my-6 text-gray-600">
               Volunteers are essential in supporting our vision of a world where
               no good food goes to waste.

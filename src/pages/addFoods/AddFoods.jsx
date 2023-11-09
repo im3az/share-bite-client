@@ -48,7 +48,7 @@ const AddFoods = () => {
     };
     // console.log(availableFoodsData);
     axios
-      .post("http://localhost:5000/availableFoods", availableFoodsData)
+      .post("https://share-bite-server-dpt0g090w-im3az.vercel.app/availableFoods", availableFoodsData)
       .then((data) => {
         console.log(data.data);
         toast.success("Food added successfully");

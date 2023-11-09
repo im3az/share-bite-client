@@ -13,7 +13,7 @@ const ManageSingleFood = () => {
     queryKey: ["requestedFood"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/manageSingleFood/${id}`
+        `https://share-bite-server-dpt0g090w-im3az.vercel.app/manageSingleFood/${id}`
       );
       return res.data;
     },
@@ -43,7 +43,7 @@ const ManageSingleFood = () => {
     // console.log(updateData);
 
     axios
-      .put(`http://localhost:5000/manageSingleFood/${foodId}`, {
+      .put(`https://share-bite-server-dpt0g090w-im3az.vercel.app/manageSingleFood/${foodId}`, {
         foodStatus,
       })
       .then((response) => {

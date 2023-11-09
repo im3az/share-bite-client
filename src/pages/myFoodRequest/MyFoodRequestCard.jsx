@@ -38,7 +38,7 @@ const MyFoodRequestCard = ({ foods }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           return axios
-            .delete(`http://localhost:5000/myFoodDelete/${id}`)
+            .delete(`https://share-bite-server-dpt0g090w-im3az.vercel.app/myFoodDelete/${id}`)
             .then((res) => {
               console.log(res);
               Swal.fire({
@@ -55,7 +55,7 @@ const MyFoodRequestCard = ({ foods }) => {
       });
 
       // return axios
-      //   .delete(`http://localhost:5000/deleteFood/${id}`)
+      //   .delete(`https://share-bite-server-dpt0g090w-im3az.vercel.app/deleteFood/${id}`)
       //   .then((res) => {
       //     console.log(res);
       //   })

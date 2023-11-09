@@ -17,7 +17,7 @@ const MyFoodRequest = () => {
     queryFn: async () => {
       const res = axios
         .get(
-          `http://localhost:5000/myFoodRequest?requesterEmail=${user?.email}`
+          `https://share-bite-server-dpt0g090w-im3az.vercel.app/myFoodRequest?requesterEmail=${user?.email}`
         )
         .then((data) => {
           return data.data;

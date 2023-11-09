@@ -9,7 +9,9 @@ const AvailableFoods = () => {
     queryKey: ["availableFoods"],
     queryFn: async () => {
       const res = axios
-        .get("http://localhost:5000/availableFoods?foodStatus=available")
+        .get(
+          "https://share-bite-server-dpt0g090w-im3az.vercel.app/availableFoods?foodStatus=available"
+        )
         .then((data) => {
           return data.data;
         });

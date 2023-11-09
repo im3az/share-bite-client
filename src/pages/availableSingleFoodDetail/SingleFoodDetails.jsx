@@ -16,7 +16,7 @@ const SingleFoodDetails = () => {
     queryKey: ["availableSingleFood"],
     queryFn: async () => {
       const res = axios
-        .get(`http://localhost:5000/availableFoods/${id}`)
+        .get(`https://share-bite-server-dpt0g090w-im3az.vercel.app/availableFoods/${id}`)
         .then((data) => {
           return data.data;
         })
@@ -88,7 +88,7 @@ const SingleFoodDetails = () => {
     // console.log(requestedFoodData);
 
     axios
-      .post("http://localhost:5000/requestedFoods", requestedFoodData)
+      .post("https://share-bite-server-dpt0g090w-im3az.vercel.app/requestedFoods", requestedFoodData)
       .then((data) => {
         console.log(data.data);
         toast.success("Food successfully requested");

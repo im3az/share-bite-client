@@ -12,7 +12,7 @@ const UpdateFoods = () => {
     queryKey: ["availableSingleFood"],
     queryFn: async () => {
       const res = axios
-        .get(`http://localhost:5000/availableFoods/${id}`)
+        .get(`https://share-bite-server-dpt0g090w-im3az.vercel.app/availableFoods/${id}`)
         .then((data) => {
           return data.data;
         })
@@ -59,7 +59,7 @@ const UpdateFoods = () => {
     // console.log(updateData);
 
     axios
-      .put(`http://localhost:5000/updateFoods/${_id}`, {
+      .put(`https://share-bite-server-dpt0g090w-im3az.vercel.app/updateFoods/${_id}`, {
         foodName,
         foodImage,
         foodQuantity,
